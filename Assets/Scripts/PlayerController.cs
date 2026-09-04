@@ -79,6 +79,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Destroy the current object
+            Destroy(gameObject);
+            // Update the winText to display "You Lose!"
+            winTextObject.gameObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+        }
+    }
+
     /// <summary>
     /// Function to update the displayed count of "PickUp" objects collected.
     /// </summary>
@@ -88,6 +100,8 @@ public class PlayerController : MonoBehaviour
 
         if (count >= 15)
         {
+            Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+
             winTextObject.SetActive(true);
         }
     }
